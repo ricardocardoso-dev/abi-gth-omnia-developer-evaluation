@@ -42,5 +42,12 @@ public class GetProductResponse
     /// <summary>
     /// The rating details of the product.
     /// </summary>
-    public Rating Rating { get; set; } = new Rating();
+    public RatingDto Rating { get; set; } = new RatingDto();
+
+}
+
+public class RatingDto
+{
+    public double Rate { get; set; }
+    public int Count { get; set; }
 }
