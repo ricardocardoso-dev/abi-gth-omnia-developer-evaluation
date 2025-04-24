@@ -1,9 +1,27 @@
 namespace Ambev.DeveloperEvaluation.Domain.Enums;
 
-public enum UserRole
+/// <summary>
+/// Enum representing different user roles.
+/// </summary>
+public enum UserRole : byte
 {
+    /// <summary>
+    /// No role assigned.
+    /// </summary>
     None = 0,
-    Customer,    
-    Manager,
-    Admin,
+
+    /// <summary>
+    /// Customer role.
+    /// </summary>
+    Customer = 1,
+
+    /// <summary>
+    /// Manager role.
+    /// </summary>
+    Manager = 2,
+
+    /// <summary>
+    /// Admin role.
+    /// </summary>
+    Admin = 3,
 }
