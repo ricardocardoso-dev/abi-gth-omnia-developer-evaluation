@@ -1,14 +1,14 @@
 using FluentValidation;
 
-namespace Ambev.DeveloperEvaluation.Application.Products.GetProduct;
+namespace Ambev.DeveloperEvaluation.Application.Products.ListProducts;
 
 /// <summary>
-/// Validator for GetProductCommand
+/// Validator for GetProductQuery
 /// </summary>
-public class GetProductValidator : AbstractValidator<GetProductCommand>
+public class GetProductValidator : AbstractValidator<GetProductQuery>
 {
     /// <summary>
-    /// Initializes validation rules for GetProductCommand
+    /// Initializes validation rules for GetProductQuery
     /// </summary>
     public GetProductValidator()
     {

@@ -1,11 +1,11 @@
-using Ambev.DeveloperEvaluation.Domain.Entities;
+using Ambev.DeveloperEvaluation.WebApi.Features.Products.Common;
 
-namespace Ambev.DeveloperEvaluation.Application.Products.ListProducts;
+namespace Ambev.DeveloperEvaluation.WebApi.Features.Products.ListProducts;
 
 /// <summary>
-/// Response model for GetProduct operation
+/// Represents a single product in the response.
 /// </summary>
-public class GetProductResult
+public class ListProductsResponse
 {
     /// <summary>
     /// The unique identifier of the product.
@@ -40,5 +40,6 @@ public class GetProductResult
     /// <summary>
     /// The rating details of the product.
     /// </summary>
-    public Rating Rating { get; set; } = new Rating();
+    public ProductRatingResponse Rating { get; set; } = new ProductRatingResponse();
+
 }

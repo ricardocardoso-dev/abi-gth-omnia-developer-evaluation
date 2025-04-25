@@ -12,7 +12,7 @@ public class GetProductProfile : Profile
     /// </summary>
     public GetProductProfile()
     {
-        CreateMap<Guid, Application.Products.GetProduct.GetProductCommand>()
-            .ConstructUsing(id => new Application.Products.GetProduct.GetProductCommand(id));
+        CreateMap<Guid, Application.Products.ListProducts.GetProductQuery>()
+            .ConstructUsing(id => new Application.Products.ListProducts.GetProductQuery(id));
     }
 }

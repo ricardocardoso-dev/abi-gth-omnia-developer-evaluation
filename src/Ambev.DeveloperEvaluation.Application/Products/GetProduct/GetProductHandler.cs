@@ -3,12 +3,12 @@ using MediatR;
 using FluentValidation;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
 
-namespace Ambev.DeveloperEvaluation.Application.Products.GetProduct;
+namespace Ambev.DeveloperEvaluation.Application.Products.ListProducts;
 
 /// <summary>
-/// Handler for processing GetProductCommand requests
+/// Handler for processing GetProductQuery requests
 /// </summary>
-public class GetProductHandler : IRequestHandler<GetProductCommand, GetProductResult>
+public class GetProductHandler : IRequestHandler<GetProductQuery, GetProductResult>
 {
     private readonly IProductRepository _productRepository;
     private readonly IMapper _mapper;
@@ -18,7 +18,7 @@ public class GetProductHandler : IRequestHandler<GetProductCommand, GetProductRe
     /// </summary>
     /// <param name="productRepository">The product repository</param>
     /// <param name="mapper">The AutoMapper instance</param>
-    /// <param name="validator">The validator for GetProductCommand</param>
+    /// <param name="validator">The validator for GetProductQuery</param>
     public GetProductHandler(
         IProductRepository productRepository,
         IMapper mapper)
@@ -28,22 +28,22 @@ public class GetProductHandler : IRequestHandler<GetProductCommand, GetProductRe
     }
 
     /// <summary>
-    /// Handles the GetProductCommand request
+    /// Handles the GetProductQuery request
     /// </summary>
-    /// <param name="request">The GetProduct command</param>
+    /// <param name="query">The GetProduct command</param>
     /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>The product details if found</returns>
-    public async Task<GetProductResult> Handle(GetProductCommand request, CancellationToken cancellationToken)
+    public async Task<GetProductResult> Handle(GetProductQuery query, CancellationToken cancellationToken)
     {
         var validator = new GetProductValidator();
-        var validationResult = await validator.ValidateAsync(request, cancellationToken);
+        var validationResult = await validator.ValidateAsync(query, cancellationToken);
 
         if (!validationResult.IsValid)
             throw new ValidationException(validationResult.Errors);
 
-        var product = await _productRepository.GetByIdAsync(request.Id, cancellationToken);
+        var product = await _productRepository.GetByIdAsync(query.Id, cancellationToken);
         if (product == null)
-            throw new KeyNotFoundException($"Product with ID {request.Id} not found");
+            throw new KeyNotFoundException($"Product with ID {query.Id} not found");
 
         return _mapper.Map<GetProductResult>(product);
     }

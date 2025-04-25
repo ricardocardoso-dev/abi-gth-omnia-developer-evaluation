@@ -3,9 +3,9 @@ using Ambev.DeveloperEvaluation.Domain.Entities;
 namespace Ambev.DeveloperEvaluation.Application.Products.ListProducts;
 
 /// <summary>
-/// Response model for GetProduct operation
+/// Response model for ListProducts operation
 /// </summary>
-public class GetProductResult
+public class ListProductsItem
 {
     /// <summary>
     /// The unique identifier of the product.

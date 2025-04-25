@@ -1,11 +1,11 @@
 using Ambev.DeveloperEvaluation.Domain.Entities;
 
-namespace Ambev.DeveloperEvaluation.Application.Products.ListProducts;
+namespace Ambev.DeveloperEvaluation.Application.Products.UpdateProduct;
 
 /// <summary>
-/// Response model for GetProduct operation
+/// Response model for UpdateProduct operation
 /// </summary>
-public class GetProductResult
+public class UpdateProductResult
 {
     /// <summary>
     /// The unique identifier of the product.

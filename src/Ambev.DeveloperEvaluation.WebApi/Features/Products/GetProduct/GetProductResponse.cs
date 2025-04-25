@@ -1,6 +1,4 @@
-using Ambev.DeveloperEvaluation.Domain.Entities;
-using System;
-using System.Collections.Generic;
+using Ambev.DeveloperEvaluation.WebApi.Features.Products.Common;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Products.GetProduct;
 
@@ -42,12 +40,6 @@ public class GetProductResponse
     /// <summary>
     /// The rating details of the product.
     /// </summary>
-    public RatingDto Rating { get; set; } = new RatingDto();
+    public ProductRatingResponse Rating { get; set; } = new ProductRatingResponse();
 
-}
-
-public class RatingDto
-{
-    public double Rate { get; set; }
-    public int Count { get; set; }
 }
