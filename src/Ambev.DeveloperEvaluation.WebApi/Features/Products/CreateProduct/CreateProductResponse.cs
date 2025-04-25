@@ -1,4 +1,3 @@
-using Ambev.DeveloperEvaluation.Domain.Enums;
 using Ambev.DeveloperEvaluation.WebApi.Features.Products.Common;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Products.CreateProduct;

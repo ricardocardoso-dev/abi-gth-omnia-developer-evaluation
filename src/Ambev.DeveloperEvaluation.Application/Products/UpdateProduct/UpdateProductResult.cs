@@ -1,4 +1,4 @@
-using Ambev.DeveloperEvaluation.Domain.Entities;
+using Ambev.DeveloperEvaluation.Domain.ValueObjects;
 
 namespace Ambev.DeveloperEvaluation.Application.Products.UpdateProduct;
 
@@ -40,5 +40,5 @@ public class UpdateProductResult
     /// <summary>
     /// The rating details of the product.
     /// </summary>
-    public Rating Rating { get; set; } = new Rating();
+    public Rating Rating { get; private set; } = new Rating(0, 0);
 }

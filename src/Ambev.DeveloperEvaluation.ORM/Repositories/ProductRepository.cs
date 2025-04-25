@@ -43,7 +43,7 @@ public class ProductRepository : IProductRepository
     {
         return await _context.Products
             .AsNoTracking()
-            .FirstOrDefaultAsync(o=> o.Id == id, cancellationToken);
+            .FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
     }
 
     public async Task<IEnumerable<Product?>> GetAllAsync(CancellationToken cancellationToken = default)

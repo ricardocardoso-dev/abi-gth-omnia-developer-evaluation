@@ -1,4 +1,5 @@
 ﻿using Ambev.DeveloperEvaluation.Domain.Common;
+using Ambev.DeveloperEvaluation.Domain.ValueObjects;
 
 namespace Ambev.DeveloperEvaluation.Domain.Entities;
 
@@ -34,13 +35,13 @@ public class Product : BaseEntity
     /// <summary>
     /// Gets the product's rating information.
     /// </summary>
-    public Rating Rating { get; set; } = new Rating();
+    public Rating Rating { get; private set; } = new Rating(0, 0);
 
     /// <summary>
     /// Gets the product's category.
     /// Determines the category to which the product belongs.
     /// </summary>
-    public Category Category { get; set; } = new Category();
+    public string Category { get; set; } = string.Empty;
 
     /// <summary>
     /// Initializes a new instance of the Product class.
