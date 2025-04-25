@@ -102,17 +102,3 @@ public class Product : BaseEntity
 /// <summary>
 /// Represents the rating information of a product.
 /// </summary>
-public class Rating
-{
-    /// <summary>
-    /// Gets the rating rate.
-    /// Must be a positive decimal value.
-    /// </summary>
-    public decimal Rate { get; set; }
-
-    /// <summary>
-    /// Gets the count of ratings.
-    /// Must be a non-negative integer.
-    /// </summary>
-    public int Count { get; set; }
-}
