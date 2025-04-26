@@ -15,5 +15,9 @@ public class ListProductsProfile : Profile
     {
         CreateMap<ListProductsRequest, ListProductsQuery>();
         CreateMap<ListProductsItem, ListProductsResponse>();
+
+        CreateMap<Domain.ValueObjects.Rating, Common.ProductRatingResponse>()
+           .ForMember(dest => dest.Rate, opt => opt.MapFrom(src => (double)src.Rate))
+            .ForMember(dest => dest.Count, opt => opt.MapFrom(src => src.Count));
     }
 }

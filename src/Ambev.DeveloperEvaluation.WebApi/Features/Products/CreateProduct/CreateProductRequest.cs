@@ -33,13 +33,13 @@ public class CreateProductRequest
     /// <summary>
     /// Gets or sets the rating details of the product.
     /// </summary>
-    public Rating Rating { get; set; } = new Rating();
+    public ProductRatingRequest Rating { get; set; } = new();
 }
 
 /// <summary>
 /// Represents the rating details of a product.
 /// </summary>
-public class Rating
+public class ProductRatingRequest
 {
     /// <summary>
     /// Gets or sets the rate of the product. Must be a number between 0 and 5.

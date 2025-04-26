@@ -1,5 +1,6 @@
 using Ambev.DeveloperEvaluation.Domain.Repositories;
 using AutoMapper;
+using FluentValidation;
 using MediatR;
 
 namespace Ambev.DeveloperEvaluation.Application.Products.ListProducts;
@@ -34,11 +35,11 @@ public class ListProductsHandler : IRequestHandler<ListProductsQuery, List<ListP
     /// <returns>A list of products</returns>
     public async Task<List<ListProductsItem>> Handle(ListProductsQuery query, CancellationToken cancellationToken)
     {
-        //var validator = new ListProductsValidator();
-        //var validationResult = await validator.ValidateAsync(query, cancellationToken);
+        var validator = new ListProductsValidator();
+        var validationResult = await validator.ValidateAsync(query, cancellationToken);
 
-        //if (!validationResult.IsValid)
-        //    throw new ValidationException(validationResult.Errors);
+        if (!validationResult.IsValid)
+            throw new ValidationException(validationResult.Errors);
 
         var allProducts = await _productRepository.GetAllAsync(cancellationToken);
 
