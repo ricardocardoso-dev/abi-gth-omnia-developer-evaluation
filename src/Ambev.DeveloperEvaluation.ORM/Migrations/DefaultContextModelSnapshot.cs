@@ -22,6 +22,42 @@ namespace Ambev.DeveloperEvaluation.ORM.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("Ambev.DeveloperEvaluation.Domain.Entities.Product", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("numeric");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Products");
+                });
+
             modelBuilder.Entity("Ambev.DeveloperEvaluation.Domain.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
@@ -68,6 +104,33 @@ namespace Ambev.DeveloperEvaluation.ORM.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users", (string)null);
+                });
+
+            modelBuilder.Entity("Ambev.DeveloperEvaluation.Domain.Entities.Product", b =>
+                {
+                    b.OwnsOne("Ambev.DeveloperEvaluation.Domain.ValueObjects.Rating", "Rating", b1 =>
+                        {
+                            b1.Property<Guid>("ProductId")
+                                .HasColumnType("uuid");
+
+                            b1.Property<int>("Count")
+                                .HasColumnType("integer")
+                                .HasColumnName("RatingCount");
+
+                            b1.Property<decimal>("Rate")
+                                .HasColumnType("numeric")
+                                .HasColumnName("RatingRate");
+
+                            b1.HasKey("ProductId");
+
+                            b1.ToTable("Products");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ProductId");
+                        });
+
+                    b.Navigation("Rating")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
