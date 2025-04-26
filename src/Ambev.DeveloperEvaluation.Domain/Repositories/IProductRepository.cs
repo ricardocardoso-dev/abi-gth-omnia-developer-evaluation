@@ -3,7 +3,8 @@
 namespace Ambev.DeveloperEvaluation.Domain.Repositories;
 
 /// <summary>
-/// Repository interface for Product entity operations
+/// Repository interface for performing operations on User entities.
+/// Follows the repository pattern to abstract data access logic.
 /// </summary>
 public interface IProductRepository
 {
