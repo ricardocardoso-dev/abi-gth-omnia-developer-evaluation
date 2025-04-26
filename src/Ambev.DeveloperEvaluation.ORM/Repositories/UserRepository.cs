@@ -30,6 +30,7 @@ public class UserRepository : IUserRepository
     {
         await _context.Users.AddAsync(user, cancellationToken);
         await _context.SaveChangesAsync(cancellationToken);
+
         return user;
     }
 
@@ -41,7 +42,8 @@ public class UserRepository : IUserRepository
     /// <returns>The user if found, null otherwise</returns>
     public async Task<User?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
-        return await _context.Users.FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
+        return await _context.Users.AsNoTracking()
+                                   .FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
     }
 
     /// <summary>
@@ -52,8 +54,8 @@ public class UserRepository : IUserRepository
     /// <returns>The user if found, null otherwise</returns>
     public async Task<User?> GetByEmailAsync(string email, CancellationToken cancellationToken = default)
     {
-        return await _context.Users
-            .FirstOrDefaultAsync(u => u.Email == email, cancellationToken);
+        return await _context.Users.AsNoTracking()
+                                   .FirstOrDefaultAsync(u => u.Email == email, cancellationToken);
     }
 
     /// <summary>
@@ -70,6 +72,36 @@ public class UserRepository : IUserRepository
 
         _context.Users.Remove(user);
         await _context.SaveChangesAsync(cancellationToken);
+
+        return true;
+    }
+
+    /// <summary>
+    /// Retrieves a paginated list of users from the database
+    /// </summary>
+    /// <param name="pageNumber">The page number (starting from 1)</param>
+    /// <param name="pageSize">The number of users per page</param>
+    /// <param name="cancellationToken">Cancellation token</param>
+    /// <returns>List of users for the requested page</returns>
+    public async Task<List<User>> GetAllAsync(int pageNumber = 1, int pageSize = 10, CancellationToken cancellationToken = default)
+    {
+        return await _context.Users.AsNoTracking()
+                                   .Skip((pageNumber - 1) * pageSize)
+                                   .Take(pageSize)
+                                   .ToListAsync(cancellationToken);
+    }
+
+    /// <summary>
+    /// Updates an existing user in the database
+    /// </summary>
+    /// <param name="user">The user with updated information</param>
+    /// <param name="cancellationToken">Cancellation token</param>
+    /// <returns>True if user was updated</returns>
+    public async Task<bool> UpdateAsync(User user, CancellationToken cancellationToken = default)
+    {
+        _context.Users.Update(user);
+        await _context.SaveChangesAsync(cancellationToken);
+
         return true;
     }
 }

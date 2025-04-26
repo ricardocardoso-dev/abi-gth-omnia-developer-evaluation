@@ -1,15 +1,11 @@
-﻿using Ambev.DeveloperEvaluation.Domain.Enums;
+using Ambev.DeveloperEvaluation.Domain.Enums;
 
-namespace Ambev.DeveloperEvaluation.Application.Users.CreateUser;
+namespace Ambev.DeveloperEvaluation.Application.Users.UpdateUsers;
 
 /// <summary>
-/// Represents the response returned after successfully creating a new user.
+/// Response model for UpdateUser operation
 /// </summary>
-/// <remarks>
-/// This response contains the unique identifier of the newly created user,
-/// which can be used for subsequent operations or reference.
-/// </remarks>
-public class CreateUserResult
+public class UpdateUserResult
 {
     /// <summary>
     /// The unique identifier of the user
