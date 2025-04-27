@@ -1,6 +1,6 @@
 ﻿namespace Ambev.DeveloperEvaluation.WebApi.Features.Products.Common;
 
-public class ProductRatingResponse
+public record struct ProductRatingResponse
 {
     public double Rate { get; set; }
 

@@ -13,8 +13,8 @@ public class GetUserProfile : Profile
     /// </summary>
     public GetUserProfile()
     {
-        CreateMap<Guid, Application.Users.GetUser.GetUserCommand>()
-            .ConstructUsing(id => new Application.Users.GetUser.GetUserCommand(id));
+        CreateMap<Guid, Application.Users.GetUser.GetUserQuery>()
+            .ConstructUsing(id => new Application.Users.GetUser.GetUserQuery(id));
 
         CreateMap<GetUserResult, GetUserResponse>();
     }

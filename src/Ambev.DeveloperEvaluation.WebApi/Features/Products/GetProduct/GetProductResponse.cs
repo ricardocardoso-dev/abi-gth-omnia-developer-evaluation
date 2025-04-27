@@ -5,7 +5,7 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Products.GetProduct;
 /// <summary>
 /// Represents a single product in the response.
 /// </summary>
-public class GetProductResponse
+public record struct GetProductResponse
 {
     /// <summary>
     /// The unique identifier of the product.
@@ -42,4 +42,10 @@ public class GetProductResponse
     /// </summary>
     public ProductRatingResponse Rating { get; set; } = new ProductRatingResponse();
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GetProductResponse"/> struct.
+    /// </summary>
+    public GetProductResponse()
+    {
+    }
 }

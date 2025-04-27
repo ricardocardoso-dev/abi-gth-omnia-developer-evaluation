@@ -18,7 +18,7 @@ namespace Ambev.DeveloperEvaluation.Application.Users.CreateUser;
 /// <see cref="AbstractValidator{T}"/> to ensure that the fields are correctly 
 /// populated and follow the required rules.
 /// </remarks>
-public class CreateUserCommand : IRequest<CreateUserResult>
+public record struct CreateUserCommand : IRequest<CreateUserResult>
 {
     /// <summary>
     /// Gets or sets the username of the user to be created.
@@ -50,6 +50,9 @@ public class CreateUserCommand : IRequest<CreateUserResult>
     /// </summary>
     public UserRole Role { get; set; }
 
+    public CreateUserCommand()
+    {
+    }
 
     public ValidationResultDetail Validate()
     {

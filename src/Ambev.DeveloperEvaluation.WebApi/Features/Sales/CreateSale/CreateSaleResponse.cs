@@ -3,7 +3,7 @@
 /// <summary>
 /// API response model representing the details of a created sale.
 /// </summary>
-public class CreateSaleResponse
+public record struct CreateSaleResponse
 {
     /// <summary>
     /// Gets or sets the unique sale number.
@@ -44,4 +44,11 @@ public class CreateSaleResponse
     /// Gets or sets a value indicating whether the sale was cancelled.
     /// </summary>
     public bool Cancelled { get; set; }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CreateSaleResponse"/> struct.
+    /// </summary>
+    public CreateSaleResponse()
+    {
+    }
 }
