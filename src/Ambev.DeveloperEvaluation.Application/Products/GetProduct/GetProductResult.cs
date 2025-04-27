@@ -1,11 +1,11 @@
 using Ambev.DeveloperEvaluation.Domain.ValueObjects;
 
-namespace Ambev.DeveloperEvaluation.Application.Products.ListProducts;
+namespace Ambev.DeveloperEvaluation.Application.Products.GetProduct;
 
 /// <summary>
 /// Response model for GetProduct operation
 /// </summary>
-public class GetProductResult
+public record struct GetProductResult
 {
     /// <summary>
     /// The unique identifier of the product.
@@ -41,4 +41,11 @@ public class GetProductResult
     /// The rating details of the product.
     /// </summary>
     public Rating Rating { get; private set; } = new Rating(0, 0);
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GetProductResult"/> struct.
+    /// </summary>
+    public GetProductResult()
+    {
+    }
 }

@@ -12,6 +12,6 @@ public class ListProductsValidator : AbstractValidator<ListProductsQuery>
     /// </summary>
     public ListProductsValidator()
     {
-        
+
     }
 }

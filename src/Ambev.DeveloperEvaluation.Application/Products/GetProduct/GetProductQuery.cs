@@ -1,11 +1,11 @@
 using MediatR;
 
-namespace Ambev.DeveloperEvaluation.Application.Products.ListProducts;
+namespace Ambev.DeveloperEvaluation.Application.Products.GetProduct;
 
 /// <summary>
 /// Query for retrieving a product by their ID
 /// </summary>
-public record GetProductQuery : IRequest<GetProductResult>
+public record struct GetProductQuery : IRequest<GetProductResult>
 {
     /// <summary>
     /// The unique identifier of the product to retrieve

@@ -7,14 +7,34 @@
 public record struct CreateSaleResult
 {
     /// <summary>
-    /// Unique identifier of the created sale.
-    /// </summary>
-    public Guid Id { get; set; }
-
-    /// <summary>
-    /// Sale number.
+    /// Unique sale number.
     /// </summary>
     public string SaleNumber { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Date and time when the sale was created.
+    /// </summary>
+    public DateTime SaleDate { get; set; }
+
+    /// <summary>
+    /// Unique identifier of the client involved in the sale.
+    /// </summary>
+    public int ClientId { get; set; }
+
+    /// <summary>
+    /// Name of the client involved in the sale.
+    /// </summary>
+    public string ClientName { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Unique identifier of the branch where the sale occurred.
+    /// </summary>
+    public int BranchId { get; set; }
+
+    /// <summary>
+    /// Name of the branch where the sale occurred.
+    /// </summary>
+    public string BranchName { get; set; } = string.Empty;
 
     /// <summary>
     /// Total value of the sale.
@@ -22,13 +42,10 @@ public record struct CreateSaleResult
     public decimal TotalValue { get; set; }
 
     /// <summary>
-    /// Indicates whether the sale has been cancelled.
+    /// Indicates whether the sale was cancelled.
     /// </summary>
     public bool Cancelled { get; set; }
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="CreateSaleResult"/> struct.
-    /// </summary>
     public CreateSaleResult()
     {
     }

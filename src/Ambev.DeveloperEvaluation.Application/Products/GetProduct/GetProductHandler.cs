@@ -3,7 +3,7 @@ using AutoMapper;
 using FluentValidation;
 using MediatR;
 
-namespace Ambev.DeveloperEvaluation.Application.Products.ListProducts;
+namespace Ambev.DeveloperEvaluation.Application.Products.GetProduct;
 
 /// <summary>
 /// Handler for processing GetProductQuery requests
