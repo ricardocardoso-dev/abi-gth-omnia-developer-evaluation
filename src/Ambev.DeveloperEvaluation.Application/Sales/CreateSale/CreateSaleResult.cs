@@ -4,7 +4,7 @@
 /// Result returned after creating a sale.
 /// Contains basic information about the created sale.
 /// </summary>
-public class CreateSaleResult
+public record struct CreateSaleResult
 {
     /// <summary>
     /// Unique identifier of the created sale.
@@ -25,4 +25,11 @@ public class CreateSaleResult
     /// Indicates whether the sale has been cancelled.
     /// </summary>
     public bool Cancelled { get; set; }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CreateSaleResult"/> struct.
+    /// </summary>
+    public CreateSaleResult()
+    {
+    }
 }

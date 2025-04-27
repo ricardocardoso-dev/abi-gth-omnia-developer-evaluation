@@ -5,7 +5,7 @@ namespace Ambev.DeveloperEvaluation.Application.Products.DeleteProduct;
 /// <summary>
 /// Command for deleting a product
 /// </summary>
-public record DeleteProductCommand : IRequest<DeleteProductResponse>
+public record struct DeleteProductCommand : IRequest<DeleteProductResponse>
 {
     /// <summary>
     /// The unique identifier of the product to delete

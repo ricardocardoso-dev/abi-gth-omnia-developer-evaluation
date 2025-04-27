@@ -1,9 +1,9 @@
-namespace Ambev.DeveloperEvaluation.Application.Products.DeleteProduct;
+namespace Ambev.DeveloperEvaluation.Application.Sales.DeleteSale;
 
 /// <summary>
-/// Response model for DeleteProduct operation
+/// Response model for DeleteSale operation
 /// </summary>
-public record struct DeleteProductResponse
+public record struct DeleteSaleResponse
 {
     /// <summary>
     /// Indicates whether the deletion was successful
