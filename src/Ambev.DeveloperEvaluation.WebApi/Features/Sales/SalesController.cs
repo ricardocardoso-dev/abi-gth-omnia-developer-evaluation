@@ -1,10 +1,12 @@
 ﻿using Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
 using Ambev.DeveloperEvaluation.Application.Sales.DeleteSale;
 using Ambev.DeveloperEvaluation.Application.Sales.GetSale;
+using Ambev.DeveloperEvaluation.Application.Sales.ListSales;
 using Ambev.DeveloperEvaluation.WebApi.Common;
 using Ambev.DeveloperEvaluation.WebApi.Features.Sales.CreateSale;
 using Ambev.DeveloperEvaluation.WebApi.Features.Sales.DeleteSale;
 using Ambev.DeveloperEvaluation.WebApi.Features.Sales.GetSale;
+using Ambev.DeveloperEvaluation.WebApi.Features.Sales.ListSales;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -117,5 +119,25 @@ public class SalesController : BaseController
         var getSaleResponse = _mapper.Map<GetSaleResponse>(response);
 
         return Ok(getSaleResponse);
+    }
+
+    /// <summary>
+    /// Retrieves the list of all sales
+    /// </summary>
+    /// <param name="cancellationToken">Cancellation token</param>
+    /// <returns>List of sales</returns>
+    [HttpGet]
+    [ProducesResponseType(typeof(ApiResponseWithData<List<ListSalesResponse>>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> ListSales([FromQuery] ListSalesRequest request, CancellationToken cancellationToken)
+    {
+        var query = _mapper.Map<ListSalesQuery>(request);
+        var result = await _mediator.Send(query, cancellationToken);
+
+        return Ok(new ApiResponseWithData<List<ListSalesResponse>>
+        {
+            Success = true,
+            Message = "Sales listed successfully",
+            Data = _mapper.Map<List<ListSalesResponse>>(result)
+        });
     }
 }
