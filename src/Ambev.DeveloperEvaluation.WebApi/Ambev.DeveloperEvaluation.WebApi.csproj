@@ -34,6 +34,7 @@
   <ItemGroup>
     <Folder Include="Features\Users\GetUser\" />
     <Folder Include="Features\Users\DeleteUser\" />
+    <Folder Include="Mappings\" />
   </ItemGroup>
 
 </Project>
