@@ -35,7 +35,7 @@ public static class LoggingExtension
         exclusionPredicate.Properties.TryGetValue("StatusCode", out var statusCode);
         exclusionPredicate.Properties.TryGetValue("Path", out var path);
 
-        var excludeByStatusCode = statusCode == null || statusCode.ToString().Equals("200");
+        var excludeByStatusCode = statusCode is null || statusCode.ToString().Equals("200");
         var excludeByPath = path?.ToString().Contains("/health") ?? false;
 
         return excludeByStatusCode && excludeByPath;

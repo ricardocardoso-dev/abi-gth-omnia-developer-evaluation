@@ -25,7 +25,7 @@ public class SaleDocumentRepository//: ISaleDocumentRepository
     //    var filter = Builders<SaleDocument>.Filter.Eq(x => x.Id, id);
     //    var entity = await _collection.Find(filter).FirstOrDefaultAsync(cancellationToken);
 
-    //    if (entity == null)
+    //    if (entity is null)
     //        return default;
 
     //    return _mapper.Map<SaleDocumentDto>(entity);

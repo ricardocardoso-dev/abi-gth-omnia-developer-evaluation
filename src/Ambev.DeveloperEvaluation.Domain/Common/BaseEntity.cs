@@ -48,7 +48,7 @@ public class BaseEntity : IComparable<BaseEntity>
     /// </returns>
     public int CompareTo(BaseEntity? other)
     {
-        if (other == null)
+        if (other is null)
         {
             return 1;
         }

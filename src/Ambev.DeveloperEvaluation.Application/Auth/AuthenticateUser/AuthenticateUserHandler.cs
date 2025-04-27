@@ -25,7 +25,7 @@ public class AuthenticateUserHandler : IRequestHandler<AuthenticateUserCommand, 
     {
         var user = await _userRepository.GetByEmailAsync(request.Email, cancellationToken);
 
-        if (user == null || !_passwordHasher.VerifyPassword(request.Password, user.Password))
+        if (user is null || !_passwordHasher.VerifyPassword(request.Password, user.Password))
         {
             throw new UnauthorizedAccessException("Invalid credentials");
         }

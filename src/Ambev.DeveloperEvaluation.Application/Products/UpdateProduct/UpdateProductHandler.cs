@@ -42,7 +42,7 @@ public class UpdateProductHandler : IRequestHandler<UpdateProductCommand, Update
             throw new ValidationException(validationResult.Errors);
 
         var product = await _productRepository.GetByIdAsync(request.Id, cancellationToken);
-        if (product == null)
+        if (product is null)
             throw new KeyNotFoundException($"Product with ID {request.Id} not found");
 
         return _mapper.Map<UpdateProductResult>(product);

@@ -75,7 +75,7 @@ public class SaleRepository : ISaleRepository
         var existingSale = await _context.Sales.Include(s => s.Items)
                                                .FirstOrDefaultAsync(s => s.Id == sale.Id, cancellationToken);
 
-        if (existingSale == null)
+        if (existingSale is null)
             throw new KeyNotFoundException("Sale not found");
 
 
@@ -96,7 +96,7 @@ public class SaleRepository : ISaleRepository
     public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken = default)
     {
         var sale = await GetByIdAsync(id, cancellationToken);
-        if (sale == null)
+        if (sale is null)
             return false;
 
         _context.Sales.Remove(sale);
