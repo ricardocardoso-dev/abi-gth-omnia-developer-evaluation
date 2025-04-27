@@ -1,8 +1,10 @@
 ﻿using Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
 using Ambev.DeveloperEvaluation.Application.Sales.DeleteSale;
+using Ambev.DeveloperEvaluation.Application.Sales.GetSale;
 using Ambev.DeveloperEvaluation.WebApi.Common;
 using Ambev.DeveloperEvaluation.WebApi.Features.Sales.CreateSale;
 using Ambev.DeveloperEvaluation.WebApi.Features.Sales.DeleteSale;
+using Ambev.DeveloperEvaluation.WebApi.Features.Sales.GetSale;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -91,5 +93,29 @@ public class SalesController : BaseController
             Success = true,
             Message = "Sale deleted successfully"
         });
+    }
+
+    /// <summary>
+    /// Retrieves a sale by their ID
+    /// </summary>
+    /// <param name="id">The unique identifier of the sale</param>
+    /// <param name="cancellationToken">Cancellation token</param>
+    /// <returns>The sale details if found</returns>
+    [HttpGet("{id}")]
+    [ProducesResponseType(typeof(ApiResponseWithData<GetSaleResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetSale([FromRoute] Guid id, CancellationToken cancellationToken)
+    {
+        var validator = new GetSaleRequestValidator();
+        var validationResult = await validator.ValidateAsync(new GetSaleRequest { Id = id }, cancellationToken);
+
+        if (!validationResult.IsValid)
+            return BadRequest(validationResult.Errors);
+
+        var response = await _mediator.Send(new GetSaleQuery(id), cancellationToken);
+        var getSaleResponse = _mapper.Map<GetSaleResponse>(response);
+
+        return Ok(getSaleResponse);
     }
 }
