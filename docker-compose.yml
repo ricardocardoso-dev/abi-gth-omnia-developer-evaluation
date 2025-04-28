@@ -27,6 +27,8 @@ services:
       POSTGRES_PASSWORD: ev@luAt10n
     ports:
       - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
     restart: unless-stopped
 
   ambev.developerevaluation.nosql:
@@ -47,3 +49,6 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: ev@luAt10n
     ports:
       - "6379:6379"
+
+volumes:
+  pgdata:

@@ -24,7 +24,7 @@ public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TReques
 
             var failures = validationResults
                 .SelectMany(r => r.Errors)
-                .Where(f => f != null)
+                .Where(f => f is not null)
                 .ToList();
 
             if (failures.Count != 0)

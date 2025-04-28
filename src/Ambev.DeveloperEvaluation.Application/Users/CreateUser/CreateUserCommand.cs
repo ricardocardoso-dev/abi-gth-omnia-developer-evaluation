@@ -50,6 +50,9 @@ public class CreateUserCommand : IRequest<CreateUserResult>
     /// </summary>
     public UserRole Role { get; set; }
 
+    public CreateUserCommand()
+    {
+    }
 
     public ValidationResultDetail Validate()
     {
