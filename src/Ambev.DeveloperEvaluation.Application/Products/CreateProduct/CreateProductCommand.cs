@@ -14,8 +14,9 @@ namespace Ambev.DeveloperEvaluation.Application.Products.CreateProduct;
 /// 
 /// Validation is handled by <see cref="CreateProductCommandValidator"/>.
 /// </remarks>
-public class CreateProductCommand : IRequest<CreateProductResult>
+public record struct CreateProductCommand : IRequest<CreateProductResult>
 {
+
     /// <summary>
     /// Gets or sets the title of the product.
     /// </summary>
@@ -46,6 +47,10 @@ public class CreateProductCommand : IRequest<CreateProductResult>
     /// </summary>
     public RatingDto Rating { get; set; } = new();
 
+    public CreateProductCommand()
+    {
+    }
+
     public ValidationResultDetail Validate()
     {
         var validator = new CreateProductCommandValidator();
@@ -61,7 +66,7 @@ public class CreateProductCommand : IRequest<CreateProductResult>
 /// <summary>
 /// DTO for product rating details.
 /// </summary>
-public class RatingDto
+public record struct RatingDto
 {
     /// <summary>
     /// Gets or sets the rate score.

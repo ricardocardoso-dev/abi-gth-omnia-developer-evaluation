@@ -5,7 +5,7 @@ namespace Ambev.DeveloperEvaluation.Application.Products.UpdateProduct;
 /// <summary>
 /// Command for retrieving a product by their ID
 /// </summary>
-public record UpdateProductCommand : IRequest<UpdateProductResult>
+public record struct UpdateProductCommand : IRequest<UpdateProductResult>
 {
     /// <summary>
     /// The unique identifier of the product to retrieve

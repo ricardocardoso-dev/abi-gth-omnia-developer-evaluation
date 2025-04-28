@@ -5,7 +5,7 @@ namespace Ambev.DeveloperEvaluation.Application.Users.UpdateUsers;
 /// <summary>
 /// Command for retrieving a user by their ID
 /// </summary>
-public record UpdateUserCommand : IRequest<UpdateUserResult>
+public record struct UpdateUserCommand : IRequest<UpdateUserResult>
 {
     /// <summary>
     /// The unique identifier of the user to retrieve

@@ -5,7 +5,7 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Products.CreateProduct;
 /// <summary>
 /// API response model for CreateProduct operation.
 /// </summary>
-public class CreateProductResponse
+public record struct CreateProductResponse
 {
     /// <summary>
     /// The unique identifier of the created product.
@@ -41,4 +41,11 @@ public class CreateProductResponse
     /// The rating details of the product.
     /// </summary>
     public ProductRatingResponse Rating { get; set; } = new ProductRatingResponse();
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CreateProductResponse"/> struct.
+    /// </summary>
+    public CreateProductResponse()
+    {
+    }
 }

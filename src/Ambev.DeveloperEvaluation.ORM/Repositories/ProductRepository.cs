@@ -59,7 +59,7 @@ public class ProductRepository : IProductRepository
     public async Task<Product> UpdateAsync(Product product, CancellationToken cancellationToken = default)
     {
         var existingProduct = await GetByIdAsync(product.Id, cancellationToken);
-        if (existingProduct == null)
+        if (existingProduct is null)
         {
             throw new KeyNotFoundException("Product not found");
         }
@@ -80,7 +80,7 @@ public class ProductRepository : IProductRepository
     public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken = default)
     {
         var product = await GetByIdAsync(id, cancellationToken);
-        if (product == null)
+        if (product is null)
             return false;
 
         _context.Products.Remove(product);

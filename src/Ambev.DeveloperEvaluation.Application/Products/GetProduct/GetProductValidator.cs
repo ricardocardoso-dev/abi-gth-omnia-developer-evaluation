@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace Ambev.DeveloperEvaluation.Application.Products.ListProducts;
+namespace Ambev.DeveloperEvaluation.Application.Products.GetProduct;
 
 /// <summary>
 /// Validator for GetProductQuery
@@ -12,8 +12,6 @@ public class GetProductValidator : AbstractValidator<GetProductQuery>
     /// </summary>
     public GetProductValidator()
     {
-        RuleFor(x => x.Id)
-            .NotEmpty()
-            .WithMessage("Product ID is required");
+        RuleFor(x => x.Id).NotEmpty().WithMessage("Product ID is required");
     }
 }
