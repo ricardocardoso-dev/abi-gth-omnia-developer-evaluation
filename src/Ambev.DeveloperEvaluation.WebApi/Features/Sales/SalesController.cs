@@ -2,11 +2,13 @@
 using Ambev.DeveloperEvaluation.Application.Sales.DeleteSale;
 using Ambev.DeveloperEvaluation.Application.Sales.GetSale;
 using Ambev.DeveloperEvaluation.Application.Sales.ListSales;
+using Ambev.DeveloperEvaluation.Application.Sales.UpdateSale;
 using Ambev.DeveloperEvaluation.WebApi.Common;
 using Ambev.DeveloperEvaluation.WebApi.Features.Sales.CreateSale;
 using Ambev.DeveloperEvaluation.WebApi.Features.Sales.DeleteSale;
 using Ambev.DeveloperEvaluation.WebApi.Features.Sales.GetSale;
 using Ambev.DeveloperEvaluation.WebApi.Features.Sales.ListSales;
+using Ambev.DeveloperEvaluation.WebApi.Features.Sales.UpdateSale;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -133,11 +135,33 @@ public class SalesController : BaseController
         var query = _mapper.Map<ListSalesQuery>(request);
         var result = await _mediator.Send(query, cancellationToken);
 
-        return Ok(new ApiResponseWithData<List<ListSalesResponse>>
-        {
-            Success = true,
-            Message = "Sales listed successfully",
-            Data = _mapper.Map<List<ListSalesResponse>>(result)
-        });
+        return Ok(_mapper.Map<List<ListSalesResponse>>(result));
+    }
+
+    /// <summary>
+    /// Updates an existing sale
+    /// </summary>
+    /// <param name="id">ID of the sale to update</param>
+    /// <param name="request">The updated sale data</param>
+    /// <param name="cancellationToken">Cancellation token</param>
+    /// <returns>Updated sale details</returns>
+    [HttpPut("{id}")]
+    [ProducesResponseType(typeof(ApiResponseWithData<UpdateSaleResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> UpdateSale(Guid id, [FromBody] UpdateSaleRequest request, CancellationToken cancellationToken)
+    {
+        request.Id = id;
+
+        var validator = new UpdateSaleRequestValidator();
+        var validationResult = await validator.ValidateAsync(request, cancellationToken);
+
+        if (!validationResult.IsValid)
+            return BadRequest(validationResult.Errors);
+
+        var command = _mapper.Map<UpdateSaleCommand>(request);
+        var response = await _mediator.Send(command, cancellationToken);
+
+        return Ok(_mapper.Map<UpdateSaleResponse>(response));
     }
 }
