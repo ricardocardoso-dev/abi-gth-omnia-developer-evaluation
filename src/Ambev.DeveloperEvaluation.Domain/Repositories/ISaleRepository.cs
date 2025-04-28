@@ -22,7 +22,7 @@ public interface ISaleRepository
     /// <param name="id">The unique identifier of the sale to delete.</param>
     /// <param name="cancellationToken">A token to observe while waiting for the task to complete.</param>
     /// <returns>True if the sale was deleted; false if the sale was not found.</returns>
-    Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken = default);
+    Task<bool> CancelAsync(Guid id, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Retrieves a paginated list of all sales.
@@ -48,4 +48,5 @@ public interface ISaleRepository
     /// <param name="cancellationToken">A token to observe while waiting for the task to complete.</param>
     /// <returns>The updated sale entity.</returns>
     Task<Sale> UpdateAsync(Sale sale, CancellationToken cancellationToken = default);
+    Task<Sale?> GetBySaleNumber(long saleNumber, CancellationToken cancellationToken = default);
 }

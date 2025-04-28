@@ -8,7 +8,7 @@ public record struct UpdateSaleItemCommand
     /// <summary>
     /// Product ID for the item
     /// </summary>
-    public Guid ProductId { get; }
+    public int ProductId { get; }
 
     /// <summary>
     /// Product description for the item
@@ -26,9 +26,14 @@ public record struct UpdateSaleItemCommand
     public decimal UnitPrice { get; }
 
     /// <summary>
-    /// Discount applied to the item
+    /// Discount value applied to the item.
     /// </summary>
-    public decimal Discount { get; }
+    public decimal DiscountValue { get; set; }
+
+    /// <summary>
+    /// Discount percent applied to the item.
+    /// </summary>
+    public decimal DiscountPercent { get; set; }
 
     /// <summary>
     /// Total value of the item after discount
@@ -44,7 +49,7 @@ public record struct UpdateSaleItemCommand
         ProductDescription = productDescription;
         Quantity = quantity;
         UnitPrice = unitPrice;
-        Discount = discount;
+        DiscountValue = discount;
         TotalValue = totalValue;
     }
 }

@@ -4,7 +4,7 @@
 /// Command representing an individual item included in a sale creation operation.
 /// Encapsulates product information.
 /// </summary>
-public record struct CreateSaleItemCommand
+public class CreateSaleItemCommand
 {
     /// <summary>
     /// External identity of the product.
@@ -27,9 +27,14 @@ public record struct CreateSaleItemCommand
     public decimal UnitPrice { get; set; }
 
     /// <summary>
-    /// Discount applied to the item, if any.
+    /// Discount value applied to the item.
     /// </summary>
-    public decimal Discount { get; set; }
+    public decimal DiscountValue { get; set; }
+
+    /// <summary>
+    /// Discount percent applied to the item.
+    /// </summary>
+    public decimal DiscountPercent { get; set; }
 
     /// <summary>
     /// Total value of the item after applying the discount.

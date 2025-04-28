@@ -1,6 +1,9 @@
-﻿namespace Ambev.DeveloperEvaluation.Application.Sales.UpdateSale;
+namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
 
-public record struct UpdateSaleItemResult
+/// <summary>
+/// Response model for CreateSale operation
+/// </summary>
+public record struct CreateSaleItemResult
 {
     /// <summary>
     /// Unique identifier for the sale item.
@@ -15,7 +18,7 @@ public record struct UpdateSaleItemResult
     /// <summary>
     /// Denormalized product description.
     /// </summary>
-    public string ProductDescription { get; set; } = string.Empty;
+    public string ProductDescription { get; set; }
 
     /// <summary>
     /// Quantity of the product sold.
@@ -41,18 +44,4 @@ public record struct UpdateSaleItemResult
     /// Total value of the item after discount.
     /// </summary>
     public decimal TotalValue { get; set; }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="SaleItem"/> class.
-    /// </summary>
-    public UpdateSaleItemResult(Guid id, int productId, string productDescription, int quantity, decimal unitPrice, decimal discount, decimal totalValue)
-    {
-        Id = id;
-        ProductId = productId;
-        ProductDescription = productDescription;
-        Quantity = quantity;
-        UnitPrice = unitPrice;
-        DiscountValue = discount;
-        TotalValue = totalValue;
-    }
 }

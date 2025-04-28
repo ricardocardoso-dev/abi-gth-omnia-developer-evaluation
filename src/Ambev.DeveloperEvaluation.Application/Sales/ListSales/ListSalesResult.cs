@@ -1,21 +1,14 @@
-﻿namespace Ambev.DeveloperEvaluation.DocumentPersistence.Documents;
-
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
-using System;
-using System.Collections.Generic;
+﻿namespace Ambev.DeveloperEvaluation.Application.Sales.ListSales;
 
 /// <summary>
-/// Represents a sale document stored in the document database.
-/// Contains client, branch, item, and financial information.
+/// Represents an individual item in the list of sales.
+/// Contains product, quantity, pricing, discount, and total value information.
 /// </summary>
-public class SaleDocument
+public record struct ListSalesResult
 {
     /// <summary>
-    /// Unique identifier of the sale document.
+    /// Unique identifier for the sale.
     /// </summary>
-    [BsonId]
-    [BsonRepresentation(BsonType.String)]
     public Guid Id { get; set; }
 
     /// <summary>
@@ -54,20 +47,20 @@ public class SaleDocument
     public decimal TotalValue { get; set; }
 
     /// <summary>
-    /// Indicates whether the sale was cancelled.
+    /// Indicates whether the sale has been cancelled.
     /// </summary>
     public bool Cancelled { get; set; }
 
     /// <summary>
-    /// List of items included in the sale.
+    /// Collection of sale items.
     /// </summary>
-    public List<SaleItemDocument> Items { get; set; }
+    public List<ListSalesItemResult> Items { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="SaleDocument"/> class.
+    /// Initializes a new instance of the <see cref="ListSalesResult"/> class with an empty list of items.
     /// </summary>
-    public SaleDocument()
+    public ListSalesResult()
     {
-        Items = new List<SaleItemDocument>();
+        Items = new List<ListSalesItemResult>();
     }
 }

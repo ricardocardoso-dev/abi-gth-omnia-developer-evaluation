@@ -15,7 +15,7 @@ public record struct UpdateSaleCommand : IRequest<UpdateSaleResult>
     /// <summary>
     /// Sale number
     /// </summary>
-    public string SaleNumber { get; }
+    public long SaleNumber { get; }
 
     /// <summary>
     /// Sale date
@@ -47,7 +47,7 @@ public record struct UpdateSaleCommand : IRequest<UpdateSaleResult>
     /// </summary>
     public List<UpdateSaleItemCommand> Items { get; }
 
-    public UpdateSaleCommand(Guid id, string saleNumber, DateTime saleDate, int clientId, string clientName, int branchId, string branchName, List<UpdateSaleItemCommand> items)
+    public UpdateSaleCommand(Guid id, long saleNumber, DateTime saleDate, int clientId, string clientName, int branchId, string branchName, List<UpdateSaleItemCommand> items)
     {
         Id = id;
         SaleNumber = saleNumber;

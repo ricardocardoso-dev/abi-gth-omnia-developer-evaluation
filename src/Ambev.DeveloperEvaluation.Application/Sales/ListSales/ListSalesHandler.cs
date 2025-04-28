@@ -8,7 +8,7 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.ListSales;
 /// <summary>
 /// Handler for processing ListSalesQuery requests
 /// </summary>
-public class ListSalesHandler : IRequestHandler<ListSalesQuery, List<ListSalesItem>>
+public class ListSalesHandler : IRequestHandler<ListSalesQuery, List<ListSalesResult>>
 {
     private readonly ISaleRepository _saleRepository;
     private readonly IMapper _mapper;
@@ -31,7 +31,7 @@ public class ListSalesHandler : IRequestHandler<ListSalesQuery, List<ListSalesIt
     /// <param name="query">The query to list all sales</param>
     /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A list of sales</returns>
-    public async Task<List<ListSalesItem>> Handle(ListSalesQuery query, CancellationToken cancellationToken)
+    public async Task<List<ListSalesResult>> Handle(ListSalesQuery query, CancellationToken cancellationToken)
     {
         var validator = new ListSalesValidator();
         var validationResult = await validator.ValidateAsync(query, cancellationToken);
@@ -41,6 +41,6 @@ public class ListSalesHandler : IRequestHandler<ListSalesQuery, List<ListSalesIt
 
         var allSales = await _saleRepository.GetAllAsync(query.Page, query.PageSize, cancellationToken);
 
-        return _mapper.Map<List<ListSalesItem>>(allSales);
+        return _mapper.Map<List<ListSalesResult>>(allSales);
     }
 }

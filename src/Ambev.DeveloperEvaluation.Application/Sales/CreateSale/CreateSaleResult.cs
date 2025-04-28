@@ -9,7 +9,7 @@ public record struct CreateSaleResult
     /// <summary>
     /// Unique sale number.
     /// </summary>
-    public string SaleNumber { get; set; } = string.Empty;
+    public long SaleNumber { get; set; }
 
     /// <summary>
     /// Date and time when the sale was created.
@@ -46,7 +46,16 @@ public record struct CreateSaleResult
     /// </summary>
     public bool Cancelled { get; set; }
 
+    /// <summary>
+    /// Collection of sale items.
+    /// </summary>
+    public List<CreateSaleItemResult> Items { get; set; }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CreateSaleResult"/> class with an empty list of items.
+    /// </summary>
     public CreateSaleResult()
     {
+        Items = new List<CreateSaleItemResult>();
     }
 }

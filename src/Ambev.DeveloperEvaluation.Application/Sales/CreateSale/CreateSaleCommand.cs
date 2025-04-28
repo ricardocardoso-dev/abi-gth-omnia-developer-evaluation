@@ -6,12 +6,12 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
 /// Command to create a new sale.
 /// Encapsulates all the necessary information to register a sale.
 /// </summary>
-public record struct CreateSaleCommand : IRequest<CreateSaleResult>
+public class CreateSaleCommand : IRequest<CreateSaleResult>
 {
     /// <summary>
     /// Unique sale number.
     /// </summary>
-    public string SaleNumber { get; set; } = string.Empty;
+    public long SaleNumber { get; set; }
 
     /// <summary>
     /// Date when the sale was made.

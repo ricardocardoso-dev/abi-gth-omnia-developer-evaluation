@@ -10,6 +10,7 @@ public class ListSalesProfile : Profile
 {
     public ListSalesProfile()
     {
-        CreateMap<Sale, ListSalesItem>();
+        CreateMap<Sale, ListSalesResult>();
+        CreateMap<SaleItem, ListSalesItemResult>();
     }
 }

@@ -1,6 +1,8 @@
-﻿using Ambev.DeveloperEvaluation.Domain.Entities;
+﻿using Ambev.DeveloperEvaluation.Application.Sales.DeleteSale;
+using Ambev.DeveloperEvaluation.Domain.Entities;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
 using AutoMapper;
+using FluentValidation;
 using MediatR;
 
 namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
@@ -33,11 +35,19 @@ public class CreateSaleCommandHandler : IRequestHandler<CreateSaleCommand, Creat
     /// <returns>The created sale details</returns>
     public async Task<CreateSaleResult> Handle(CreateSaleCommand command, CancellationToken cancellationToken)
     {
-        var totalSaleValue = command.Items.Sum(x => x.TotalValue);
+        var validator = new CreateSaleValidator();
+        var validationResult = await validator.ValidateAsync(command, cancellationToken);
+
+        if (!validationResult.IsValid)
+            throw new ValidationException(validationResult.Errors);
+
+        var existsSale = await _saleRepository.GetBySaleNumber(command.SaleNumber, cancellationToken);
+        if(existsSale is not null)
+            throw new InvalidOperationException($"Sale with number {command.SaleNumber} already exists");
 
         var sale = _mapper.Map<Sale>(command);
-        sale.TotalValue = totalSaleValue;
-        sale.Cancelled = false;
+
+        sale.ApplyDiscountsToAllItems();
 
         var createdSale = await _saleRepository.CreateAsync(sale, cancellationToken);
         var result = _mapper.Map<CreateSaleResult>(createdSale);

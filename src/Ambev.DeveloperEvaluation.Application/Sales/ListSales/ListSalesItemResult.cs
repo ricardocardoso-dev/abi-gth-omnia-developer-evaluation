@@ -1,9 +1,9 @@
 namespace Ambev.DeveloperEvaluation.Application.Sales.ListSales;
 
 /// <summary>
-/// Response model for ListProducts operation
+/// Response model for ListSales operation
 /// </summary>
-public record struct ListSalesItem
+public record struct ListSalesItemResult
 {
     /// <summary>
     /// Unique identifier for the sale item.

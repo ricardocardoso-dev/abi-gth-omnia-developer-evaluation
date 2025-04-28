@@ -8,7 +8,7 @@ public record struct UpdateSaleResult
     /// <summary>
     /// Unique sale number.
     /// </summary>
-    public string SaleNumber { get; } = string.Empty;
+    public long SaleNumber { get; }
 
     /// <summary>
     /// Date and time when the sale was created.
