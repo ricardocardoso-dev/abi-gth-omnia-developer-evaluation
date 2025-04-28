@@ -1,3 +1,5 @@
+using Ambev.DeveloperEvaluation.Application.Sales.ListSales;
+
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.ListSales;
 
 /// <summary>
@@ -6,9 +8,14 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.ListSales;
 public record struct ListSalesResponse
 {
     /// <summary>
+    /// Unique identifier for the sale.
+    /// </summary>
+    public Guid Id { get; set; }
+
+    /// <summary>
     /// Unique sale number.
     /// </summary>
-    public string SaleNumber { get; set; } = string.Empty;
+    public long SaleNumber { get; set; }
 
     /// <summary>
     /// Date and time when the sale was created.
@@ -46,9 +53,15 @@ public record struct ListSalesResponse
     public bool Cancelled { get; set; }
 
     /// <summary>
+    /// Collection of sale items.
+    /// </summary>
+    public List<ListSalesItemResponse> Items { get; set; }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="GetSaleResponse"/> struct.
     /// </summary>
     public ListSalesResponse()
     {
+        Items = new List<ListSalesItemResponse>();
     }
 }

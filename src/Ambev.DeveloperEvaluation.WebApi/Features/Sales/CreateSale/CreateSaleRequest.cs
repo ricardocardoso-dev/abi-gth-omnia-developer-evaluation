@@ -9,9 +9,14 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.CreateSale;
 public record struct CreateSaleRequest : IRequest<CreateSaleResponse>
 {
     /// <summary>
+    /// Unique identifier for the sale item.
+    /// </summary>
+    public Guid Id { get; set; }
+
+    /// <summary>
     /// Unique sale number.
     /// </summary>
-    public string SaleNumber { get; set; } = string.Empty;
+    public long SaleNumber { get; set; }
 
     /// <summary>
     /// Date when the sale was made.

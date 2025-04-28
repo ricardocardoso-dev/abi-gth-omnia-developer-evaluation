@@ -1,4 +1,3 @@
-
 using Ambev.DeveloperEvaluation.Application.Sales.ListSales;
 using AutoMapper;
 
@@ -15,7 +14,8 @@ public class ListSalesProfile : Profile
     public ListSalesProfile()
     {
         CreateMap<ListSalesRequest, ListSalesQuery>();
-        CreateMap<ListSalesItem, ListSalesResponse>();
 
+        CreateMap<ListSalesResult, ListSalesResponse>();
+        CreateMap<ListSalesItemResult, ListSalesItemResponse>();
     }
 }

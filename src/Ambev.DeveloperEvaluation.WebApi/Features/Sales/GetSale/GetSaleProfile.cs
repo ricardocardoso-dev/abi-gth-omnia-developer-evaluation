@@ -17,6 +17,7 @@ public class GetSaleProfile : Profile
             .ConstructUsing(id => new GetSaleQuery(id));
 
         CreateMap<GetSaleResult, GetSaleResponse>();
+        CreateMap<GetSaleItemResult, GetSaleItemResponse>();
 
     }
 }

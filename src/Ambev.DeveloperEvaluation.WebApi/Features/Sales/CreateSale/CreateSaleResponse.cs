@@ -8,7 +8,7 @@ public record struct CreateSaleResponse
     /// <summary>
     /// Gets or sets the unique sale number.
     /// </summary>
-    public string SaleNumber { get; set; } = string.Empty;
+    public long SaleNumber { get; set; }
 
     /// <summary>
     /// Gets or sets the date and time when the sale was created.
@@ -46,9 +46,15 @@ public record struct CreateSaleResponse
     public bool Cancelled { get; set; }
 
     /// <summary>
+    /// Collection of sale items.
+    /// </summary>
+    public List<CreateSaleItemResponse> Items { get; set; }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="CreateSaleResponse"/> struct.
     /// </summary>
     public CreateSaleResponse()
     {
+        Items = new List<CreateSaleItemResponse>();
     }
 }

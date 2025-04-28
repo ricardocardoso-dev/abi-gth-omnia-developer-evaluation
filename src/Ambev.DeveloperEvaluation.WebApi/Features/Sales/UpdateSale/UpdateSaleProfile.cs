@@ -21,8 +21,8 @@ public class UpdateSaleProfile : Profile
                     item.ProductDescription,
                     item.Quantity,
                     item.UnitPrice,
-                    item.Discount,
-                    item.UnitPrice * item.Quantity - item.Discount
+                    item.DiscountValue,
+                    item.UnitPrice * item.Quantity - item.DiscountValue
                 )).ToList()
             ));
 
@@ -32,8 +32,8 @@ public class UpdateSaleProfile : Profile
                 src.ProductDescription,
                 src.Quantity,
                 src.UnitPrice,
-                src.Discount,
-                src.UnitPrice * src.Quantity - src.Discount
+                src.DiscountValue,
+                src.UnitPrice * src.Quantity - src.DiscountValue
             ));
 
         CreateMap<UpdateSaleResult, UpdateSaleResponse>();

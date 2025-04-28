@@ -1,27 +1,32 @@
-﻿namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.UpdateSale;
+﻿namespace Ambev.DeveloperEvaluation.Application.Sales.ListSales;
 
 /// <summary>
-/// Request model for updating individual sale items
+/// Response model for ListSalesItemResponse
 /// </summary>
-public class UpdateSaleItemRequest
+public record struct ListSalesItemResponse
 {
     /// <summary>
-    /// Product ID for the item
+    /// Unique identifier for the sale item.
     /// </summary>
-    public Guid ProductId { get; set; }
+    public Guid Id { get; set; }
 
     /// <summary>
-    /// Product description
+    /// External identity of the product.
     /// </summary>
-    public string ProductDescription { get; set; } = string.Empty;
+    public int ProductId { get; set; }
 
     /// <summary>
-    /// Quantity of the product in the sale
+    /// Denormalized product description.
+    /// </summary>
+    public string ProductDescription { get; set; }
+
+    /// <summary>
+    /// Quantity of the product sold.
     /// </summary>
     public int Quantity { get; set; }
 
     /// <summary>
-    /// Unit price of the product
+    /// Unit price of the product.
     /// </summary>
     public decimal UnitPrice { get; set; }
 
@@ -36,7 +41,7 @@ public class UpdateSaleItemRequest
     public decimal DiscountPercent { get; set; }
 
     /// <summary>
-    /// Total value of the item after discount
+    /// Total value of the item after discount.
     /// </summary>
     public decimal TotalValue { get; set; }
 }

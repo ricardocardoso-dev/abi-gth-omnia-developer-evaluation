@@ -13,7 +13,7 @@ public class UpdateSaleRequest
     /// <summary>
     /// Sale number
     /// </summary>
-    public string SaleNumber { get; set; } = string.Empty;
+    public long SaleNumber { get; set; }
 
     /// <summary>
     /// Sale date

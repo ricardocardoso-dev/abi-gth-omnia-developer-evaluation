@@ -27,11 +27,6 @@ public record struct CreateSaleItemRequest
     public decimal UnitPrice { get; set; }
 
     /// <summary>
-    /// Discount applied to the item, if any.
-    /// </summary>
-    public decimal Discount { get; set; }
-
-    /// <summary>
     /// Initializes a new instance of the <see cref="CreateSaleItemRequest"/> struct.
     /// </summary>
     public CreateSaleItemRequest()

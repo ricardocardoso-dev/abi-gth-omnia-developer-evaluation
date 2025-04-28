@@ -43,7 +43,7 @@ public class SalesController : BaseController
     /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>The created sale details</returns>
     [HttpPost]
-    [ProducesResponseType(typeof(ApiResponseWithData<CreateSaleResult>), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(ApiResponseWithData<CreateSaleResponse>), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreateSale([FromBody] CreateSaleRequest request, CancellationToken cancellationToken)
     {
@@ -54,15 +54,9 @@ public class SalesController : BaseController
             return BadRequest(validationResult.Errors);
 
         var command = _mapper.Map<CreateSaleCommand>(request);
-
         var response = await _mediator.Send(command, cancellationToken);
 
-        return Created(string.Empty, new ApiResponseWithData<CreateSaleResult>
-        {
-            Success = true,
-            Message = "Sale created successfully",
-            Data = response
-        });
+        return Created(string.Empty, _mapper.Map<CreateSaleResponse>(response));
     }
 
     /// <summary>
