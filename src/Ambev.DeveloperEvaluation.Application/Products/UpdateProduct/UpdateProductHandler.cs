@@ -30,7 +30,7 @@ public class UpdateProductHandler : IRequestHandler<UpdateProductCommand, Update
     /// <summary>
     /// Handles the UpdateProductCommand request
     /// </summary>
-    /// <param name="request">The GetProduct command</param>
+    /// <param name="request">The UpdateProduct command</param>
     /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>The product details if found</returns>
     public async Task<UpdateProductResult> Handle(UpdateProductCommand request, CancellationToken cancellationToken)

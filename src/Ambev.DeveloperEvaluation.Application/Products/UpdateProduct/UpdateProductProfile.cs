@@ -9,7 +9,7 @@ namespace Ambev.DeveloperEvaluation.Application.Products.UpdateProduct;
 public class UpdateProductProfile : Profile
 {
     /// <summary>
-    /// Initializes the mappings for GetProduct operation
+    /// Initializes the mappings for UpdateProduct operation
     /// </summary>
     public UpdateProductProfile()
     {
