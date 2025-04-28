@@ -24,6 +24,10 @@ public class ValidationExceptionMiddleware
         {
             await HandleValidationExceptionAsync(context, ex);
         }
+        catch (Exception ex)
+        {
+            await HandleExceptionAsync(context, ex);
+        }
     }
 
     private static Task HandleValidationExceptionAsync(HttpContext context, ValidationException exception)
@@ -37,6 +41,26 @@ public class ValidationExceptionMiddleware
             Message = "Validation Failed",
             Errors = exception.Errors
                 .Select(error => (ValidationErrorDetail)error)
+        };
+
+        var jsonOptions = new JsonSerializerOptions
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        };
+
+        return context.Response.WriteAsync(JsonSerializer.Serialize(response, jsonOptions));
+    }
+
+    private static Task HandleExceptionAsync(HttpContext context, Exception exception)
+    {
+        context.Response.ContentType = "application/json";
+        context.Response.StatusCode = StatusCodes.Status400BadRequest;
+
+        var response = new
+        {
+            type = exception.GetType().Name,
+            error = exception.Message,
+            detail = exception.InnerException?.Message ?? exception.StackTrace
         };
 
         var jsonOptions = new JsonSerializerOptions
