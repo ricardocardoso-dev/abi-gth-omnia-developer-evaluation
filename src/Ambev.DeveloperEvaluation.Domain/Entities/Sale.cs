@@ -16,7 +16,7 @@ public class Sale
     /// <summary>
     /// Sale number.
     /// </summary>
-    public string SaleNumber { get; set; } = string.Empty;
+    public long SaleNumber { get; set; }
 
     /// <summary>
     /// Date when the sale was made.
@@ -64,5 +64,16 @@ public class Sale
     public Sale()
     {
         Items = new List<SaleItem>();
+    }
+
+    public void ApplyDiscountsToAllItems()
+    {
+        foreach (var item in Items)
+        {
+            item.SetTotalValue();
+            item.ApplyDiscount();
+        }
+
+        TotalValue = Items.Sum(i => i.TotalValue);
     }
 }
