@@ -1,5 +1,5 @@
-﻿using Ambev.DeveloperEvaluation.Application.Sales.DeleteSale;
-using Ambev.DeveloperEvaluation.Domain.Entities;
+﻿using Ambev.DeveloperEvaluation.Domain.Entities;
+using Ambev.DeveloperEvaluation.Domain.Events;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
 using AutoMapper;
 using FluentValidation;
@@ -14,6 +14,7 @@ public class CreateSaleCommandHandler : IRequestHandler<CreateSaleCommand, Creat
 {
     private readonly ISaleRepository _saleRepository;
     private readonly IMapper _mapper;
+    private readonly IEventPublisher _eventPublisher;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="CreateSaleCommandHandler"/> class.
@@ -21,10 +22,11 @@ public class CreateSaleCommandHandler : IRequestHandler<CreateSaleCommand, Creat
     /// <param name="saleRepository">The sale repository.</param>
     /// <param name="saleDocumentRepository">The repository for persisting sale documents.</param>
     /// <param name="mapper">The AutoMapper instance.</param>
-    public CreateSaleCommandHandler(ISaleRepository saleRepository, IMapper mapper)
+    public CreateSaleCommandHandler(ISaleRepository saleRepository, IMapper mapper, IEventPublisher eventPublisher)
     {
         _saleRepository = saleRepository;
         _mapper = mapper;
+        _eventPublisher = eventPublisher;
     }
 
     /// <summary>
@@ -42,7 +44,7 @@ public class CreateSaleCommandHandler : IRequestHandler<CreateSaleCommand, Creat
             throw new ValidationException(validationResult.Errors);
 
         var existsSale = await _saleRepository.GetBySaleNumber(command.SaleNumber, cancellationToken);
-        if(existsSale is not null)
+        if (existsSale is not null)
             throw new InvalidOperationException($"Sale with number {command.SaleNumber} already exists");
 
         var sale = _mapper.Map<Sale>(command);
@@ -50,8 +52,8 @@ public class CreateSaleCommandHandler : IRequestHandler<CreateSaleCommand, Creat
         sale.ApplyDiscountsToAllItems();
 
         var createdSale = await _saleRepository.CreateAsync(sale, cancellationToken);
-        var result = _mapper.Map<CreateSaleResult>(createdSale);
 
-        return result;
+        await _eventPublisher.PublishAsync("SaleCreated", new { SaleId = sale.Id, sale });
+        return _mapper.Map<CreateSaleResult>(createdSale);
     }
 }

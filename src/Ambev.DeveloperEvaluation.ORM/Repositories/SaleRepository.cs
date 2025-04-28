@@ -41,7 +41,7 @@ public class SaleRepository : ISaleRepository
     /// <returns>The sale if found, null otherwise.</returns>
     public async Task<Sale?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
-        return await _context.Sales.Include(s => s.Items)
+        return await _context.Sales.Include(s => s.Items.Where(x => !x.Cancelled))
                                    .AsNoTracking()
                                    .FirstOrDefaultAsync(s => s.Id == id && !s.Cancelled, cancellationToken);
     }
@@ -54,7 +54,7 @@ public class SaleRepository : ISaleRepository
     /// <returns>The <see cref="Sale"/> entity if found; otherwise, <c>null</c>.</returns>
     public async Task<Sale?> GetBySaleNumber(long saleNumber, CancellationToken cancellationToken = default)
     {
-        return await _context.Sales.Include(s => s.Items)
+        return await _context.Sales.Include(s => s.Items.Where(x => !x.Cancelled))
                                    .AsNoTracking()
                                    .FirstOrDefaultAsync(s => s.SaleNumber == saleNumber, cancellationToken);
     }
@@ -68,7 +68,7 @@ public class SaleRepository : ISaleRepository
     /// <returns>The paginated list of sales.</returns>
     public async Task<List<Sale>> GetAllAsync(int pageNumber = 1, int pageSize = 10, CancellationToken cancellationToken = default)
     {
-        return await _context.Sales.Include(s => s.Items)
+        return await _context.Sales.Include(s => s.Items.Where(x => !x.Cancelled))
                                    .AsNoTracking()
                                    .Where(s => !s.Cancelled)
                                    .Skip((pageNumber - 1) * pageSize)
@@ -84,15 +84,30 @@ public class SaleRepository : ISaleRepository
     /// <returns>The updated sale.</returns>
     public async Task<Sale> UpdateAsync(Sale sale, CancellationToken cancellationToken = default)
     {
-        var existingSale = await _context.Sales.Include(s => s.Items)
+        var existingSale = await _context.Sales.Include(s => s.Items.Where(x=> !x.Cancelled))
                                                .FirstOrDefaultAsync(s => s.Id == sale.Id, cancellationToken);
 
         if (existingSale is null)
-            throw new KeyNotFoundException("Sale not found");
+            throw new KeyNotFoundException($"Sale with ID {sale.Id} not found");
 
         _context.Entry(existingSale).CurrentValues.SetValues(sale);
         existingSale.TotalValue = sale.TotalValue;
         existingSale.Cancelled = sale.Cancelled;
+
+        foreach (var existingItem in existingSale.Items.ToList())
+        {
+            if (!sale.Items.Any(i => i.Id == existingItem.Id))
+                _context.Remove(existingItem);
+        }
+
+        foreach (var item in sale.Items)
+        {
+            var existingItem = existingSale.Items.FirstOrDefault(i => i.Id == item.Id);
+            if (existingItem != null)
+                _context.Entry(existingItem).CurrentValues.SetValues(item);
+            else
+                existingSale.Items.Add(item);
+        }
 
         await _context.SaveChangesAsync(cancellationToken);
         return existingSale;

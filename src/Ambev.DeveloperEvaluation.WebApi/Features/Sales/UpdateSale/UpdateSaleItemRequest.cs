@@ -8,7 +8,7 @@ public class UpdateSaleItemRequest
     /// <summary>
     /// Product ID for the item
     /// </summary>
-    public Guid ProductId { get; set; }
+    public int ProductId { get; set; }
 
     /// <summary>
     /// Product description

@@ -6,6 +6,11 @@
 public record struct CreateSaleResponse
 {
     /// <summary>
+    /// Unique identifier for the sale.
+    /// </summary>
+    public Guid Id { get; }
+
+    /// <summary>
     /// Gets or sets the unique sale number.
     /// </summary>
     public long SaleNumber { get; set; }

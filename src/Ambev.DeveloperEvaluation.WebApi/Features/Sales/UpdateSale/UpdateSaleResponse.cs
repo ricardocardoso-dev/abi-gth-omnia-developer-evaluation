@@ -50,10 +50,13 @@ public record struct UpdateSaleResponse
     /// </summary>
     public bool Cancelled { get; set; }
 
+    public List<UpdateSaleItemResponse> Items { get; set; }
+
     /// <summary>
-    /// Initializes a new instance of the <see cref="CreateSaleResponse"/> struct.
+    /// Initializes a new instance of the <see cref="UpdateSaleResponse"/> struct.
     /// </summary>
     public UpdateSaleResponse()
     {
+        Items = new List<UpdateSaleItemResponse>();
     }
 }

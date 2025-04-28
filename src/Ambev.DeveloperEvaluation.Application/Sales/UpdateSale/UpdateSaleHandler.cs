@@ -1,4 +1,5 @@
 using Ambev.DeveloperEvaluation.Domain.Entities;
+using Ambev.DeveloperEvaluation.Domain.Events;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
 using AutoMapper;
 using FluentValidation;
@@ -13,6 +14,7 @@ public class UpdateSaleHandler : IRequestHandler<UpdateSaleCommand, UpdateSaleRe
 {
     private readonly ISaleRepository _saleRepository;
     private readonly IMapper _mapper;
+    private readonly IEventPublisher _eventPublisher;
 
     /// <summary>
     /// Initializes a new instance of UpdateSaleHandler
@@ -20,10 +22,11 @@ public class UpdateSaleHandler : IRequestHandler<UpdateSaleCommand, UpdateSaleRe
     /// <param name="saleRepository">The sale repository</param>
     /// <param name="mapper">The AutoMapper instance</param>
     /// <param name="validator">The validator for UpdateSaleCommand</param>
-    public UpdateSaleHandler(ISaleRepository saleRepository, IMapper mapper)
+    public UpdateSaleHandler(ISaleRepository saleRepository, IMapper mapper, IEventPublisher eventPublisher)
     {
         _saleRepository = saleRepository;
         _mapper = mapper;
+        _eventPublisher = eventPublisher;
     }
 
     /// <summary>
@@ -50,18 +53,68 @@ public class UpdateSaleHandler : IRequestHandler<UpdateSaleCommand, UpdateSaleRe
         sale.BranchId = command.BranchId;
         sale.BranchName = command.BranchName;
 
-        sale.Items.Clear();
-
-        var saleItems = _mapper.Map<List<SaleItem>>(command.Items);
-
-        sale.Items.AddRange(saleItems);
+        await CancelRemovedItemsAsync(sale, command.Items, _eventPublisher);
+        UpdateOrAddItems(sale, command.Items);
 
         sale.ApplyDiscountsToAllItems();
-        sale.TotalValue = sale.Items.Sum(i => i.TotalValue);
 
         var updatedSale = await _saleRepository.UpdateAsync(sale, cancellationToken);
+        updatedSale.Items = updatedSale.Items.Where(x => !x.Cancelled).ToList();
 
+        await _eventPublisher.PublishAsync("SaleModified", updatedSale);
         return _mapper.Map<UpdateSaleResult>(updatedSale);
     }
+
+    /// <summary>
+    /// Cancels items that were removed from the sale during an update.
+    /// Publishes an event for each cancelled item.
+    /// </summary>
+    /// <param name="sale">The sale entity being updated.</param>
+    /// <param name="updatedItems">The collection of updated sale items.</param>
+    /// <param name="eventPublisher">Service used to publish cancellation events.</param>
+    private async Task CancelRemovedItemsAsync(Sale sale, IEnumerable<UpdateSaleItemCommand> updatedItems, IEventPublisher eventPublisher)
+    {
+        var updatedProductIds = updatedItems.Select(i => i.ProductId).ToHashSet();
+        foreach (var existingItem in sale.Items)
+        {
+            if (!updatedProductIds.Contains(existingItem.ProductId) && !existingItem.Cancelled)
+            {
+                existingItem.Cancelled = true;
+                await eventPublisher.PublishAsync("ItemCancelled", new { SaleId = sale.Id, Item = existingItem });
+            }
+        }
+    }
+
+    /// <summary>
+    /// Updates existing sale items or adds new items to the sale based on the update request.
+    /// Resets the cancellation flag for updated items.
+    /// </summary>
+    /// <param name="sale">The sale entity being updated.</param>
+    /// <param name="updatedItems">The collection of updated sale items.</param>
+    private void UpdateOrAddItems(Sale sale, IEnumerable<UpdateSaleItemCommand> updatedItems)
+    {
+        foreach (var item in updatedItems)
+        {
+            var saleItem = sale.Items.FirstOrDefault(i => i.ProductId == item.ProductId);
+            if (saleItem != null)
+            {
+                saleItem.Quantity = item.Quantity;
+                saleItem.UnitPrice = item.UnitPrice;
+                saleItem.Cancelled = false;
+            }
+            else
+            {
+                sale.Items.Add(new SaleItem
+                {
+                    ProductId = item.ProductId,
+                    ProductDescription = item.ProductDescription,
+                    Quantity = item.Quantity,
+                    UnitPrice = item.UnitPrice,
+                    Cancelled = false
+                });
+            }
+        }
+    }
+
 }
 

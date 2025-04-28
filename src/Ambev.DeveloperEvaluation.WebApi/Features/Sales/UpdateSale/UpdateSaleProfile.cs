@@ -37,5 +37,6 @@ public class UpdateSaleProfile : Profile
             ));
 
         CreateMap<UpdateSaleResult, UpdateSaleResponse>();
+        CreateMap<UpdateSaleItemResult, UpdateSaleItemResponse>();
     }
 }

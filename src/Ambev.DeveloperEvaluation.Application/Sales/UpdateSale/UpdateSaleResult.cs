@@ -6,6 +6,11 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.UpdateSale;
 public record struct UpdateSaleResult
 {
     /// <summary>
+    /// Unique identifier for the sale.
+    /// </summary>
+    public Guid Id { get; }
+
+    /// <summary>
     /// Unique sale number.
     /// </summary>
     public long SaleNumber { get; }
@@ -45,8 +50,22 @@ public record struct UpdateSaleResult
     /// </summary>
     public bool Cancelled { get; }
 
+    public List<UpdateSaleItemResult> Items { get; set; }
 
-    public UpdateSaleResult()
+    /// <summary>
+    /// Initializes a new instance of the <see cref="UpdateSaleResult"/> struct.
+    /// </summary>
+    public UpdateSaleResult(Guid id, long saleNumber, DateTime saleDate, int clientId, string clientName, int branchId, string branchName, decimal totalValue, bool cancelled, List<UpdateSaleItemResult> items)
     {
+        Id = id;
+        SaleNumber = saleNumber;
+        SaleDate = saleDate;
+        ClientId = clientId;
+        ClientName = clientName;
+        BranchId = branchId;
+        BranchName = branchName;
+        TotalValue = totalValue;
+        Cancelled = cancelled;
+        Items = items;
     }
 }
