@@ -1,5 +1,5 @@
-﻿using Xunit;
-using Ambev.DeveloperEvaluation.Domain.Entities;
+﻿using Ambev.DeveloperEvaluation.Domain.Entities;
+using Xunit;
 
 namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities;
 
@@ -20,8 +20,8 @@ public class SaleTests
 
         sale.ApplyDiscountsToAllItems();
 
-        Assert.Equal(40, sale.Items[0].TotalValue); 
-        Assert.Equal(60 - 6, sale.Items[1].TotalValue); 
+        Assert.Equal(40, sale.Items[0].TotalValue);
+        Assert.Equal(60 - 6, sale.Items[1].TotalValue);
         Assert.Equal(120 - 24, sale.Items[2].TotalValue);
         Assert.Equal(40 + 54 + 96, sale.TotalValue);
     }
