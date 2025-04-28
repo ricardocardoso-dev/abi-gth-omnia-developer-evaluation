@@ -41,10 +41,22 @@ public class SaleRepository : ISaleRepository
     /// <returns>The sale if found, null otherwise.</returns>
     public async Task<Sale?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
-        return await _context.Sales
-            .Include(s => s.Items)
-            .AsNoTracking()
-            .FirstOrDefaultAsync(s => s.Id == id, cancellationToken);
+        return await _context.Sales.Include(s => s.Items)
+                                   .AsNoTracking()
+                                   .FirstOrDefaultAsync(s => s.Id == id && !s.Cancelled, cancellationToken);
+    }
+
+    /// <summary>
+    /// Retrieves a sale by its unique sale number.
+    /// </summary>
+    /// <param name="saleNumber">The unique sale number to search for.</param>
+    /// <param name="cancellationToken">A token to observe while waiting for the task to complete.</param>
+    /// <returns>The <see cref="Sale"/> entity if found; otherwise, <c>null</c>.</returns>
+    public async Task<Sale?> GetBySaleNumber(long saleNumber, CancellationToken cancellationToken = default)
+    {
+        return await _context.Sales.Include(s => s.Items)
+                                   .AsNoTracking()
+                                   .FirstOrDefaultAsync(s => s.SaleNumber == saleNumber, cancellationToken);
     }
 
     /// <summary>
@@ -58,11 +70,11 @@ public class SaleRepository : ISaleRepository
     {
         return await _context.Sales.Include(s => s.Items)
                                    .AsNoTracking()
+                                   .Where(s => !s.Cancelled)
                                    .Skip((pageNumber - 1) * pageSize)
                                    .Take(pageSize)
                                    .ToListAsync(cancellationToken);
     }
-
 
     /// <summary>
     /// Updates an existing sale in the database.
@@ -78,7 +90,6 @@ public class SaleRepository : ISaleRepository
         if (existingSale is null)
             throw new KeyNotFoundException("Sale not found");
 
-
         _context.Entry(existingSale).CurrentValues.SetValues(sale);
         existingSale.TotalValue = sale.TotalValue;
         existingSale.Cancelled = sale.Cancelled;
@@ -88,18 +99,18 @@ public class SaleRepository : ISaleRepository
     }
 
     /// <summary>
-    /// Deletes a sale from the database by its unique identifier.
+    /// Cancel a sale from the database by its unique identifier.
     /// </summary>
     /// <param name="id">The unique identifier of the sale to delete.</param>
     /// <param name="cancellationToken">Cancellation token to cancel the operation.</param>
     /// <returns>True if the sale was deleted successfully; otherwise, false if not found.</returns>
-    public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken = default)
+    public async Task<bool> CancelAsync(Guid id, CancellationToken cancellationToken = default)
     {
         var sale = await GetByIdAsync(id, cancellationToken);
         if (sale is null)
             return false;
 
-        _context.Sales.Remove(sale);
+        sale.Cancelled = true;
         await _context.SaveChangesAsync(cancellationToken);
 
         return true;

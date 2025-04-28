@@ -84,9 +84,8 @@ namespace Ambev.DeveloperEvaluation.ORM.Migrations
                     b.Property<DateTime>("SaleDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("SaleNumber")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<long>("SaleNumber")
+                        .HasColumnType("bigint");
 
                     b.Property<decimal>("TotalValue")
                         .HasColumnType("numeric");
@@ -102,7 +101,13 @@ namespace Ambev.DeveloperEvaluation.ORM.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<decimal>("Discount")
+                    b.Property<bool>("Cancelled")
+                        .HasColumnType("boolean");
+
+                    b.Property<decimal>("DiscountPercent")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal>("DiscountValue")
                         .HasColumnType("numeric");
 
                     b.Property<string>("ProductDescription")
