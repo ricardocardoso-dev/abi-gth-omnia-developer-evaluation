@@ -43,7 +43,7 @@ public record struct UpdateSaleItemCommand
     /// <summary>
     /// Initializes a new instance of UpdateSaleItemCommand
     /// </summary>
-    public UpdateSaleItemCommand(Guid productId, string productDescription, int quantity, decimal unitPrice, decimal discount, decimal totalValue)
+    public UpdateSaleItemCommand(int productId, string productDescription, int quantity, decimal unitPrice, decimal discount, decimal totalValue)
     {
         ProductId = productId;
         ProductDescription = productDescription;
