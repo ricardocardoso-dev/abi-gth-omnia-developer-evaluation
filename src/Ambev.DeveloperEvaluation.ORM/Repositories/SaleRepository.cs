@@ -84,7 +84,7 @@ public class SaleRepository : ISaleRepository
     /// <returns>The updated sale.</returns>
     public async Task<Sale> UpdateAsync(Sale sale, CancellationToken cancellationToken = default)
     {
-        var existingSale = await _context.Sales.Include(s => s.Items.Where(x=> !x.Cancelled))
+        var existingSale = await _context.Sales.Include(s => s.Items.Where(x => !x.Cancelled))
                                                .FirstOrDefaultAsync(s => s.Id == sale.Id, cancellationToken);
 
         if (existingSale is null)

@@ -54,6 +54,8 @@ public class CreateSaleCommandHandler : IRequestHandler<CreateSaleCommand, Creat
         var createdSale = await _saleRepository.CreateAsync(sale, cancellationToken);
 
         await _eventPublisher.PublishAsync("SaleCreated", new { SaleId = sale.Id, sale });
+        //TODO: Gravar cópia no mongoDb para leitura rápida
+
         return _mapper.Map<CreateSaleResult>(createdSale);
     }
 }

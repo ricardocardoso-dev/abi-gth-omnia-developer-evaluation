@@ -62,6 +62,8 @@ public class UpdateSaleHandler : IRequestHandler<UpdateSaleCommand, UpdateSaleRe
         updatedSale.Items = updatedSale.Items.Where(x => !x.Cancelled).ToList();
 
         await _eventPublisher.PublishAsync("SaleModified", updatedSale);
+        //TODO: Atualizar cópia no mongoDb para leitura rápida
+
         return _mapper.Map<UpdateSaleResult>(updatedSale);
     }
 
