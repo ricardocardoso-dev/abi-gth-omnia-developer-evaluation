@@ -1,0 +1,15 @@
+name: Deploy Backend (AWS Placeholder)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Placeholder
+        run: |
+          echo "TODO: configurar deploy real do backend na AWS"
+          echo "Secrets esperados: AWS_REGION, AWS_ROLE_TO_ASSUME"
+          echo "Exemplos de estratégia: ECS Fargate, App Runner ou Elastic Beanstalk"
+          echo "Este workflow é apenas scaffold inicial e não executa deploy real."

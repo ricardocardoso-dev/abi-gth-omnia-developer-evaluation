@@ -1,0 +1,23 @@
+name: Feature
+about: Implementação de uma feature incremental
+labels: ["feature"]
+body:
+  - type: input
+    id: contexto
+    attributes:
+      label: Contexto
+    validations:
+      required: true
+  - type: textarea
+    id: criterios
+    attributes:
+      label: Critérios de aceite
+      description: Use checklist
+    validations:
+      required: true
+  - type: textarea
+    id: testes
+    attributes:
+      label: Estratégia de testes
+    validations:
+      required: true
