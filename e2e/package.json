@@ -1,0 +1,15 @@
+{
+  "name": "wishlist-e2e",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Deterministic Playwright smoke tests for Wishlist POC",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "serve:smoke": "http-server ./public -p 4173 -c-1 --silent"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.55.0",
+    "http-server": "^14.1.1"
+  }
+}

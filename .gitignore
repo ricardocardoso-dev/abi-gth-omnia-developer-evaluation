@@ -366,3 +366,15 @@ FodyWeavers.xsd
 # Secrets
 **/appsettings*.json
 **/secrets.json
+# Frontend (Flutter)
+frontend/.dart_tool/
+frontend/.packages
+frontend/.pub/
+frontend/build/
+frontend/.flutter-plugins
+frontend/.flutter-plugins-dependencies
+
+# E2E (Playwright)
+e2e/node_modules/
+e2e/playwright-report/
+e2e/test-results/

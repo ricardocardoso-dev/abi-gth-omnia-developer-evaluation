@@ -1,0 +1,21 @@
+name: Deploy Frontend (AWS Placeholder)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy-frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Placeholder
+        run: |
+          echo "TODO: implement frontend deployment to AWS."
+          echo "Suggested targets: S3 + CloudFront or Amplify."
+          echo "Required secrets/variables (example):"
+          echo "- AWS_ROLE_TO_ASSUME"
+          echo "- AWS_REGION"
+          echo "- AWS_S3_BUCKET"
+          echo "- AWS_CLOUDFRONT_DISTRIBUTION_ID"
