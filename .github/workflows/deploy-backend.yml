@@ -1,0 +1,21 @@
+name: Deploy Backend (AWS Placeholder)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Placeholder
+        run: |
+          echo "TODO: implement backend deployment to AWS."
+          echo "Suggested targets: ECS/Fargate or App Runner."
+          echo "Required secrets/variables (example):"
+          echo "- AWS_ROLE_TO_ASSUME"
+          echo "- AWS_REGION"
+          echo "- AWS_ECR_REPOSITORY (if container-based)"
+          echo "- AWS_BACKEND_SERVICE_NAME"

@@ -1,0 +1,30 @@
+name: Epic
+about: Track a full initiative split into feature issues
+title: "[Epic] "
+labels: ["epic"]
+body:
+  - type: textarea
+    id: objective
+    attributes:
+      label: Objective
+      description: High-level goal for this epic.
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope
+      description: In-scope and out-of-scope items.
+    validations:
+      required: true
+  - type: textarea
+    id: milestones
+    attributes:
+      label: Milestones / Child Features
+      description: Ordered checklist of feature issues.
+      value: |
+        - [ ] Feature 1
+        - [ ] Feature 2
+        - [ ] Feature 3
+    validations:
+      required: true
