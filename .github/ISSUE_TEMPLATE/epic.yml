@@ -1,0 +1,17 @@
+name: Epic
+about: Planejamento macro de múltiplas features
+labels: ["epic"]
+body:
+  - type: textarea
+    id: objetivo
+    attributes:
+      label: Objetivo
+    validations:
+      required: true
+  - type: textarea
+    id: features
+    attributes:
+      label: Features planejadas
+      description: Liste as features em ordem sequencial
+    validations:
+      required: true

@@ -1,0 +1,15 @@
+name: Deploy Frontend (AWS Placeholder)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy-frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Placeholder
+        run: |
+          echo "TODO: configurar deploy real do frontend na AWS"
+          echo "Secrets esperados: AWS_REGION, AWS_ROLE_TO_ASSUME"
+          echo "Exemplos de estratégia: S3 + CloudFront ou AWS Amplify"
+          echo "Este workflow é apenas scaffold inicial e não executa deploy real."
